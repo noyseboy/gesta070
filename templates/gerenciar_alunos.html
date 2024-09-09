@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Alunos</title>
+    <link rel="stylesheet" href="/static/css/gerenciar_alunos.css">
+</head>
+<body>
+    <h1>Gerenciar Alunos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Número de Contato</th>
+                <th>Data de Nascimento</th>
+                <th>Sexo</th>
+                <th>Categoria</th>
+                <th>Data do Processo</th>
+                <th>Usuário</th>
+                <th>Senha</th>
+                <th>Forma de Pagamento</th>
+                <th>Valor Total</th>
+                <th>Valor de Entrada</th>
+                <th>Número de Parcelas</th>
+                <th>Status de Pagamento</th>
+                <th>Datas das Parcelas</th>
+                <th>Valores das Parcelas</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in alunos %}
+            <tr>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.cpf }}</td>
+                <td>{{ aluno.numero_contato }}</td>
+                <td>{{ aluno.data_nascimento.strftime('%d/%m/%Y') }}</td>
+                <td>{{ aluno.sexo }}</td>
+                <td>{{ aluno.categoria }}</td>
+                <td>{{ aluno.data_processo.strftime('%d/%m/%Y') }}</td>
+                <td>{{ aluno.username }}</td>
+                <td>{{ aluno.password }}</td>
+                
+                {% if aluno.pagamento %}
+                <td>{{ aluno.pagamento.forma_pagamento }}</td>
+                <td>R$ {{ aluno.pagamento.valor_total }}</td>
+                <td>{{ aluno.pagamento.valor_entrada or 'N/A' }}</td>
+                <td>{{ aluno.pagamento.num_parcelas or 'À Vista' }}</td>
+                <td>
+                    {% if aluno.pagamento.forma_pagamento == 'parcelado' %}
+                        {% set status = aluno.pagamento.status_parcelas.split(',') %}
+                        {% set datas = aluno.pagamento.data_parcelas.split(',') %}
+                        {% set valores = [aluno.pagamento.valor_parcela] * aluno.pagamento.num_parcelas %}
+                        {% for i in range(aluno.pagamento.num_parcelas) %}
+                            <form action="{{ url_for('atualizar_parcela', aluno_id=aluno.id, parcela_index=i) }}" method="POST" style="display:inline;">
+                                <button type="submit" {% if status[i] == '1' %}disabled{% endif %}>
+                                    {{ status[i] if status[i] == '1' else 'Marcar como Paga' }}
+                                </button>
+                                <br>{{ datas[i] }} - R$ {{ valores[i] }}<br>
+                            </form>
+                        {% endfor %}
+                    {% else %}
+                        Pago
+                    {% endif %}
+                </td>
+                <td>{{ aluno.pagamento.data_parcelas or 'N/A' }}</td>
+                <td>{{ aluno.pagamento.valor_parcela or 'N/A' }}</td>
+                {% else %}
+                <td colspan="6">Pagamento não cadastrado</td>
+                {% endif %}
+                
+                <td>
+                    <form action="{{ url_for('deletar_aluno', aluno_id=aluno.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="_method" value="POST">
+                        <button type="submit" onclick="return confirm('Tem certeza de que deseja excluir este aluno?');">Excluir</button>
+                    </form>
+                    {% if not aluno.pagamento %}
+                    <a href="{{ url_for('cadastrar_pagamento', aluno_id=aluno.id) }}">Cadastrar Pagamento</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="link-container">
+        <a href="{{ url_for('cadastro_aluno') }}">Cadastrar Novo Aluno</a>
+        <a href="{{ url_for('cadastro_aluno') }}">Voltar</a>
+    </div>
+</body>
+</html>

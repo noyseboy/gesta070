@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deletar Avisos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Central de Avisos</h1>
+        <nav>
+            <a href="{{ url_for('cadastro_aluno') }}">Voltar para Cadastro de Aluno</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Excluir Avisos</h2>
+        form action="{{ url_for('deletar_avisos') }}" method="POST">
+            <fieldset>
+                <legend>Selecione os avisos para excluir:</legend>
+                {% for aviso in avisos %}
+                    <div>
+                        <input type="checkbox" name="avisos_para_deletar" value="{{ aviso.id }}" id="aviso_{{ aviso.id }}">
+                        <label for="aviso_{{ aviso.id }}">{{ aviso.texto }} - {{ aviso.data_criacao.strftime('%d/%m/%Y %H:%M') }}</label>
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <button type="submit">Deletar Avisos Selecionados</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Inscrições</title>
+    <link rel="stylesheet" href="/static/css/pesquisa_inscricoes.css">
+    
+</head>
+<body>
+    <h1>Pesquisar Inscrições</h1>
+
+    <!-- Formulário para pesquisa -->
+    <form action="{{ url_for('pesquisa_inscricoes') }}" method="POST">
+        <label for="categoria">Selecione a Categoria:</label>
+        <select name="categoria" id="categoria">
+            <option value="todas">Todas</option>
+            <option value="A">Categoria A</option>
+            <option value="B">Categoria B</option>
+            <option value="AB">Categoria AB</option>
+        </select>
+
+        <label for="sexo">Selecione o Sexo:</label>
+        <select name="sexo" id="sexo">
+            <option value="todos">Todos</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+        </select>
+
+        <label for="mes">Digite o Mês (formato MM/AAAA):</label>
+        <input type="text" name="mes" id="mes" placeholder="Ex: 09/2023" style="width: 50%;">
+
+        <button type="submit">Pesquisar</button>
+    </form>
+
+    {% if resultado %}
+        <h2>Resultado da Pesquisa</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: left;">Total de Inscrições</td>
+                    <td>{{ resultado.total_inscricoes }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Total Inscrições Categoria A</td>
+                    <td>{{ resultado.total_categoria_a }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Total Inscrições Categoria B</td>
+                    <td>{{ resultado.total_categoria_b }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Total Inscrições Categoria AB</td>
+                    <td>{{ resultado.total_categoria_ab }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Total Sexo Masculino</td>
+                    <td>{{ resultado.total_masculino }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Total Sexo Feminino</td>
+                    <td>{{ resultado.total_feminino }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Detalhes dos Alunos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Nome</th>
+                    <th style="text-align: center;">CPF</th>
+                    <th style="text-align: center;">Categoria</th>
+                    <th style="text-align: center;">Data do Processo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for aluno in resultado.alunos %}
+                <tr>
+                    <td style="text-align: left;">{{ aluno.nome }}</td>
+                    <td style="text-align: center;">{{ aluno.cpf }}</td>
+                    <td style="text-align: center;">{{ aluno.categoria }}</td>
+                    <td style="text-align: center;">{{ aluno.data_processo.strftime('%d/%m/%Y') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif erro %}
+        <p>{{ erro }}</p>
+    {% endif %}
+
+    <div>
+        <a href="{{ url_for('cadastro_aluno') }}" class="back">Voltar</a>
+    </div>
+</body>
+</html>

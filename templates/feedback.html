@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback</title>
+</head>
+<body>
+    <h2>Feedback</h2>
+    <p>Espaço para os alunos deixarem seu feedback.</p>
+
+    <!-- Exibe mensagens de sucesso ou erro -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('feedback') }}" method="POST">
+        <textarea name="feedback" rows="4" cols="50" placeholder="Digite seu feedback aqui..."></textarea><br><br>
+        <button type="submit">Enviar</button>
+    </form>
+    
+    <a href="{{ url_for('painel_aluno') }}">Voltar para o Painel do Aluno</a>
+</body>
+</html>

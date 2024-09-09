@@ -1,0 +1,88 @@
+/* Importar fonte Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Reset básico e estilo de fonte */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-image: url("/static/img/logo3.jpeg");
+    background-size: cover; /* Cobre toda a tela */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff; /* Texto branco para contraste com o fundo */
+    overflow-x: hidden; /* Evita rolagem horizontal */
+}
+
+/* Estilo do cabeçalho */
+.header {
+    background: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
+    padding: 20px 0;
+}
+
+.header .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Título do cabeçalho */
+.header h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+/* Navegação */
+nav {
+    display: flex;
+    gap: 15px; /* Espaçamento entre os links */
+    flex-wrap: nowrap; /* Impede a quebra de linha */
+    justify-content: center; /* Centraliza os links */
+    overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.2); /* Fundo semi-transparente */
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+    white-space: nowrap; /* Impede a quebra de linha dentro dos links */
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.5); /* Efeito hover */
+}
+
+/* Conteúdo principal */
+.content {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    border-radius: 10px;
+}
+
+/* Título da seção */
+.content h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* Parágrafo de texto */
+.content p {
+    font-size: 16px;
+    font-weight: 400;
+}

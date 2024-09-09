@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Mensagem</title>
+    <link rel="stylesheet" href="/static/css/enviar_mensagem.css">
+    <script>
+        function confirmacaoEnvio() {
+            alert('Mensagem enviada com sucesso!');
+        }
+    </script>
+</head>
+<body>
+    <h1>Enviar Mensagem</h1>
+    <form action="{{ url_for('enviar_mensagem') }}" method="post" onsubmit="confirmacaoEnvio()">
+        <label for="aluno_id">Escolha o aluno:</label>
+        <select name="aluno_id" id="aluno_id" required>
+            {% for aluno in alunos %}
+                <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
+            {% endfor %}
+        </select>
+        <label for="texto">Mensagem:</label>
+        <textarea name="texto" id="texto" required></textarea>
+        <input type="submit" value="Enviar Mensagem">
+    </form>
+    <a href="{{ url_for('cadastro_aluno') }}" class="back">Voltar</a>
+</body>
+</html>

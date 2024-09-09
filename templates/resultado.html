@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do Simulado</title>
+</head>
+<body>
+    <h1>Resultado do Simulado</h1>
+    <p><strong>Você acertou:</strong> {{ resultado.pontuacao }} de {{ resultado.total_perguntas }} perguntas.</p>
+    
+    {% if resultado.respostas_erradas %}
+        <h2>Respostas Incorretas</h2>
+        <ul>
+            {% for pergunta_id, resposta_certa in resultado.respostas_erradas.items() %}
+                <li>
+                    Pergunta {{ pergunta_id }}: Resposta correta é "{{ resposta_certa }}"
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Parabéns! Você acertou todas as perguntas.</p>
+    {% endif %}
+    
+    <a href="/simulado">Voltar ao Simulado</a>
+</body>
+</html>

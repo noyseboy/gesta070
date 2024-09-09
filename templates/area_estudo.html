@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Área de Estudo</title>
+    <link rel="stylesheet" href="/static/css/area_estudo.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Área de Estudo</h1>
+        </div>
+    </header>
+    <div class="content container">
+        <h2>Vídeos de Estudo</h2>
+        <ul class="video-list">
+            <li><a href="https://www.youtube.com/watch?v=example1" target="_blank">Vídeo sobre o Tema 1</a></li>
+            <li><a href="https://www.youtube.com/watch?v=example2" target="_blank">Vídeo sobre o Tema 2</a></li>
+            <li><a href="https://www.youtube.com/watch?v=example3" target="_blank">Vídeo sobre o Tema 3</a></li>
+            <!-- Adicione mais links conforme necessário -->
+        </ul>
+        
+        <!-- Novo campo para a prova -->
+        <div class="exam-section">
+            <h2>Faça o Simulado</h2>
+            <p>Teste seus conhecimentos respondendo ao simulado disponível.</p>
+            <a href="{{ url_for('simulado') }}" class="button">Fazer Prova</a>
+        </div>
+        
+        <a href="{{ url_for('painel_aluno') }}" class="button">Voltar para o Painel do Aluno</a>
+    </div>
+</body>
+</html>

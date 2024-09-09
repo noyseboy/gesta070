@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Mensagens</title>
+</head>
+<body>
+    <h1>Mensagens</h1>
+    <ul>
+        {% for mensagem in mensagens %}
+            <li>
+                <p>{{ mensagem.texto }}</p>
+                <p><small>{{ mensagem.data_criacao.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+            </li>
+        {% else %}
+            <li>Nenhuma mensagem encontrada.</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('painel_aluno') }}">voltar</a>
+</body>
+</html>

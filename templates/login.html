@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" href="/static/css/login.css">
+    <!-- Fonte Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="box">
+        <div class="container">
+            <header>Login</header>
+            <form method="post">
+                <div class="input-field">
+                    <input type="text" class="input" name="username" placeholder="Nome de usuário" required>
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="input-field">
+                    <input type="password" class="input" name="password" placeholder="Senha" required>
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="input-field">
+                    <select name="user_type" class="input" required>
+                        <option value="aluno">Aluno</option>
+                        <option value="adm">Administrador</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit">Entrar</button>
+                
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                  <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Avisos</title>
+    <link rel="stylesheet" href="/static/css/adicionar_aviso.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Central de Avisos</h1>
+    </header>
+    <div class="container">
+        <!-- Formulário para adicionar um novo aviso -->
+        <div class="content">
+            <form method="POST" action="{{ url_for('adicionar_aviso') }}">
+                <div class="form-group">
+                    <label for="aviso">Texto do Aviso:</label>
+                    <textarea id="aviso" name="texto_aviso" rows="4" required></textarea>
+                </div>
+                <input type="submit" value="Adicionar Aviso" class="button"><br/><br/>
+            </form>
+        </div>
+
+        <!-- Lista de avisos existentes com botão para deletar -->
+        <div class="avisos">
+            <h2>Avisos Existentes</h2>
+            {% for aviso in avisos %}
+                <div class="aviso">
+                    <p>{{ aviso.texto }} - {{ aviso.data_criacao.strftime('%d/%m/%Y %H:%M') }}</p>
+                    <form method="POST" action="{{ url_for('deletar_avisos') }}">
+                        <input type="hidden" name="aviso_id" value="{{ aviso.id }}">
+                        <button type="submit">Apagar</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="{{ url_for('cadastro_aluno') }}" class="button">Voltar para o Cadastro de Aluno</a>
+    </div>
+</body>
+</html>

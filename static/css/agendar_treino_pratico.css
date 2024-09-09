@@ -1,0 +1,134 @@
+/* POPPINS FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("images/1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.header {
+    text-align: center;
+    color: #808080; /* Cor cinza para o título */
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.content {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 16px;
+    color: #fff; /* Cor branca para os labels gerais */
+}
+
+select, input[type="datetime-local"], .submit {
+    height: 45px;
+    border: none;
+    border-radius: 30px;
+    padding: 0 15px;
+    background: #fff; /* Fundo branco para o input e select */
+    color: #808080; /* Cor cinza para o texto dos selects */
+    font-size: 16px;
+    width: 80%; /* Reduz a largura para 80% */
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+select:focus, input[type="datetime-local"]:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Adiciona destaque ao foco */
+}
+
+select option {
+    color: #000; /* Preto para as opções do select */
+    background: #fff; /* Fundo branco para as opções do select */
+}
+
+input[type="datetime-local"] {
+    width: 80%; /* Reduz a largura para 80% */
+}
+
+/* Estilo dos botões */
+button, .button, .submit {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    width: 45%; /* Reduz a largura para 80% */
+    margin: 0 auto;  /*Centraliza horizontalmente */
+
+}
+
+button[type="submit"], .submit {
+    background: rgba(0, 128, 0, 0.7); /* Botão de agendar em verde */
+    color: #fff;
+}
+
+button[type="button"], .button {
+    background: rgba(0, 0, 128, 0.7); /* Botão de verificar e voltar em azul */
+    color: #fff;
+    text-decoration: none; /* Remover sublinhado dos links de botão */
+    display: inline-block;
+}
+
+button:hover, .button:hover, .submit:hover {
+    background: rgba(0, 128, 0, 1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; /* Centraliza os checkboxes */
+}
+
+.checkbox-group div {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os checkboxes e labels */
+}
+
+.checkbox-group label {
+    color: #808080; /* Cor cinza para os labels gerais */
+}
+
+.agendamentos-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.agendamentos-list li {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}

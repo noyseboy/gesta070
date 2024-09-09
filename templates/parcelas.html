@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Parcelas em Atraso e a Vencer</title>
+    <link rel="stylesheet" href="/static/css/parcelas.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .link-container a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .link-container a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Parcelas em Atraso e a Vencer</h1>
+
+    <h2>Parcelas em Atraso</h2>
+    {% if parcelas_atraso %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do Aluno</th>
+                    <th>CPF</th> <!-- Adicionando a coluna CPF -->
+                    <th>Número de Contato</th>
+                    <th>Data de Vencimento</th>
+                    <th>Valor da Parcela</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pagamento, aluno, data in parcelas_atraso %}
+                    <tr>
+                        <td>{{ aluno.nome }}</td>
+                        <td>{{ aluno.cpf }}</td> <!-- Exibindo o CPF -->
+                        <td>{{ aluno.numero_contato }}</td>
+                        <td>{{ data.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ pagamento.valor_parcela }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Não há parcelas em atraso.</p>
+    {% endif %}
+
+    <h2>Parcelas a Vencer</h2>
+    {% if parcelas_vencer %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do Aluno</th>
+                    <th>CPF</th> <!-- Adicionando a coluna CPF -->
+                    <th>Número de Contato</th>
+                    <th>Data de Vencimento</th>
+                    <th>Valor da Parcela</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pagamento, aluno, data in parcelas_vencer %}
+                    <tr>
+                        <td>{{ aluno.nome }}</td>
+                        <td>{{ aluno.cpf }}</td> <!-- Exibindo o CPF -->
+                        <td>{{ aluno.numero_contato }}</td>
+                        <td>{{ data.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ pagamento.valor_parcela }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Não há parcelas a vencer.</p>
+    {% endif %}
+
+    <div class="link-container">
+        <a href="{{ url_for('cadastro_aluno') }}">Voltar</a>
+    </div>
+</body>
+</html>

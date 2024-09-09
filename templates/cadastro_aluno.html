@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Aluno</title>
+    <link rel="stylesheet" href="/static/css/cadastro_aluno.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="box">
+        <div class="container">
+            <header>Cadastro de Aluno</header>
+
+            <!-- Flash Messages Section -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul class="flashes">
+                  {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            <!-- Cadastro Form -->
+            <form method="post">
+                <!-- Nome do Aluno -->
+                <div class="input-field">
+                    <input type="text" class="input" name="nome" placeholder="Nome" required>
+                </div>
+
+                <!-- Data de Nascimento -->
+                <div class="input-field">
+                    <input type="date" class="input" name="data_nascimento" placeholder="Data de Nascimento" required>
+                </div>
+
+                <!-- CPF -->
+                <div class="input-field">
+                    <input type="text" class="input" name="cpf" placeholder="CPF (somente números)" maxlength="11" required>
+                </div>
+                <!-- Número de Contato -->
+                <div class="input-field">
+                    <input type="text" class="input" name="numero_contato" placeholder="Número de Contato" maxlength="15" required>
+                </div>
+                <!-- Sexo -->
+                <div class="input-field">
+                    <select name="sexo" class="input" required>
+                        <option value="M">Masculino</option>
+                        <option value="F">Feminino</option>
+                    </select>
+                </div>
+
+                <!-- Categoria Pretendida -->
+                <div class="input-field">
+                    <select name="categoria" class="input" required>
+                        <option value="A">Categoria A</option>
+                        <option value="B">Categoria B</option>
+                        <option value="AB">Categoria AB</option>
+                    </select>
+                </div>
+
+                <!-- Data do Processo -->
+                <div class="input-field">
+                    <input type="date" class="input" name="data_processo" placeholder="Data do Processo" required>
+                </div>
+
+                <!-- Nome de Usuário -->
+                <div class="input-field">
+                    <input type="text" class="input" name="username" placeholder="Nome de usuário" required>
+                </div>
+
+                <!-- Senha -->
+                <div class="input-field">
+                    <input type="password" class="input" name="password" placeholder="Senha" required>
+                </div>
+
+                <!-- Botões -->
+                <button type="submit" class="submit">Cadastrar</button>
+
+                <!-- Navegação -->
+                <a href="{{ url_for('gerenciar_alunos') }}" class="back">Gerenciar Alunos</a>
+                <a href="{{ url_for('adicionar_aviso') }}" class="back">Adicionar Aviso</a>
+                <a href="{{ url_for('visualizar_feedbacks') }}" class="back">Visualizar Feedbacks</a>
+                <a href="{{ url_for('enviar_mensagem') }}" class="back">Enviar Mensagem</a>
+                <a href="{{ url_for('agendamentos') }}" class="back">Ver Agendamentos de Alunos</a>
+                <a href="{{ url_for('buscar_alunos') }}" class="back">Busca de Alunos</a>
+                <a href="{{ url_for('parcelas') }}" class="back">parcelas</a>
+                <!-- <a href="{{ url_for('estatisticas_inscricoes') }}" class="back">Estatisticas Inscricoes</a> -->
+                <a href="{{ url_for('calcular_lucro_mensal') }}" class="back">Calcular Lucro Mensal</a>
+                <a href="{{ url_for('pesquisa_inscricoes') }}" class="back">Pesquisa Inscrições</a>
+                
+                <a href="{{ url_for('login') }}" class="back">Voltar</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

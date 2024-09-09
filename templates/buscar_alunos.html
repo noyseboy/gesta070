@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Alunos</title>
+    <link rel="stylesheet" href="/static/css/buscar_alunos.css">
+</head>
+<body>
+    <h1>Buscar Alunos</h1>
+    <form method="get" action="{{ url_for('buscar_alunos') }}">
+        <input type="text" name="query" placeholder="Nome ou CPF" value="{{ query }}">
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if alunos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Data de Nascimento</th>
+                    <th>Sexo</th>
+                    <th>Categoria</th>
+                    <th>Data do Processo</th>
+                    <th>Usuário</th>
+                    <th>Senha</th>
+                    <th>Número de Contato</th> <!-- Novo campo -->
+                    <th>Forma de Pagamento</th>
+                    <th>Valor Total</th>
+                    <th>Valor de Entrada</th>
+                    <th>Número de Parcelas</th>
+                    <th>Status de Pagamento</th>
+                    <th>Datas das Parcelas</th>
+                    <th>Valores das Parcelas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for aluno in alunos %}
+                <tr>
+                    <td>{{ aluno.nome }}</td>
+                    <td>{{ aluno.cpf }}</td>
+                    <td>{{ aluno.data_nascimento.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ aluno.sexo }}</td>
+                    <td>{{ aluno.categoria }}</td>
+                    <td>{{ aluno.data_processo.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ aluno.username }}</td>
+                    <td>{{ aluno.password }}</td>
+                    <td>{{ aluno.numero_contato }}</td> <!-- Exibindo número de contato -->
+                    <td>{{ aluno.pagamento.forma_pagamento if aluno.pagamento else 'N/A' }}</td>
+                    <td>{{ aluno.pagamento.valor_total if aluno.pagamento else 'N/A' }}</td>
+                    <td>{{ aluno.pagamento.valor_entrada if aluno.pagamento else 'N/A' }}</td>
+                    <td>{{ aluno.pagamento.num_parcelas if aluno.pagamento else 'N/A' }}</td>
+                    <td class="actions">
+                        {% if aluno.pagamento and aluno.pagamento.status_parcelas %}
+                            {% set status_parcelas = aluno.pagamento.status_parcelas.split(',') %}
+                            {% for i in range(status_parcelas|length) %}
+                                {% set status = status_parcelas[i] %}
+                                <span>Parcela {{ i + 1 }}: {{ 'Paga' if status == '1' else 'Pendente' }}</span>
+                                {% if status == '0' %}
+                                    <form method="post" action="{{ url_for('atualizar_parcela', aluno_id=aluno.id, parcela_index=i) }}" style="display:inline;">
+                                        <button type="submit">Marcar como paga</button>
+                                    </form>
+                                {% endif %}
+                                <br>
+                            {% endfor %}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>{{ aluno.pagamento.data_parcelas if aluno.pagamento else 'N/A' }}</td>
+                    <td>{{ aluno.pagamento.valor_parcela if aluno.pagamento else 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="center">Nenhum aluno encontrado.</p>
+    {% endif %}
+    <div class="center">
+        <br/>
+        <a href="{{ url_for('cadastro_aluno') }}">Voltar</a>
+    </div>
+</body>
+</html>

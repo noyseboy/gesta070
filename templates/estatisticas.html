@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Estatísticas de Inscrições</title>
+</head>
+<body>
+    <h1>Estatísticas de Inscrições</h1>
+
+    <p>Total de Inscrições: {{ total_inscricoes }}</p>
+
+    <h2>Inscrições por Categoria</h2>
+    <p>Categoria A: {{ inscricoes_A }}</p>
+    <p>Categoria B: {{ inscricoes_B }}</p>
+    <p>Categoria AB: {{ inscricoes_AB }}</p>
+
+    <h2>Inscrições por Sexo</h2>
+    <p>Masculino: {{ inscricoes_masculino }}</p>
+    <p>Feminino: {{ inscricoes_feminino }}</p>
+
+    <div class="link-container">
+        <a href="{{ url_for('cadastro_aluno') }}">Voltar</a>
+    </div>
+</body>
+</html>

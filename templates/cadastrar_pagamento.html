@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Pagamento</title>
+    <link rel="stylesheet" href="/static/css/cadastrar_pagamento.css">
+</head>
+<body>
+    <h1>Cadastrar Pagamento</h1>
+
+    {% if erro %}
+        <p style="color: red;">{{ erro }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('cadastrar_pagamento', aluno_id=aluno.id) }}" method="POST">
+        <label for="forma_pagamento">Forma de Pagamento:</label>
+        <select name="forma_pagamento" id="forma_pagamento" required>
+            <option value="avista">À Vista</option>
+            <option value="parcelado">Parcelado</option>
+        </select>
+
+        <label for="valor_total">Valor Total:</label>
+        <input type="number" step="0.01" name="valor_total" id="valor_total" required>
+
+        <label for="valor_entrada">Valor de Entrada:</label>
+        <input type="number" step="0.01" name="valor_entrada" id="valor_entrada" value="0.0">
+
+        <div id="parcelamento_section" style="display: none;">
+            <label for="num_parcelas">Número de Parcelas:</label>
+            <input type="number" name="num_parcelas" id="num_parcelas">
+
+            <label for="data_primeira_parcela">Data da Primeira Parcela:</label>
+            <input type="date" name="data_primeira_parcela" id="data_primeira_parcela">
+
+            <p id="parcelas_info">
+                Valor de cada parcela: <span id="valor_parcela"></span><br>
+                Datas das Parcelas:<br>
+                <span id="datas_parcelas"></span>
+            </p>
+        </div>
+
+        <button type="submit">Cadastrar Pagamento</button>
+        <a href="{{ url_for('gerenciar_alunos') }}">Voltar</a>
+    </form>
+
+    <script>
+        document.getElementById('forma_pagamento').addEventListener('change', function () {
+            var parcelamentoSection = document.getElementById('parcelamento_section');
+            if (this.value === 'parcelado') {
+                parcelamentoSection.style.display = 'block';
+            } else {
+                parcelamentoSection.style.display = 'none';
+                document.getElementById('parcelas_info').style.display = 'none';
+            }
+        });
+
+        document.getElementById('valor_total').addEventListener('input', calcularParcelas);
+        document.getElementById('valor_entrada').addEventListener('input', calcularParcelas);
+        document.getElementById('num_parcelas').addEventListener('input', calcularParcelas);
+        document.getElementById('data_primeira_parcela').addEventListener('input', calcularParcelas);
+
+        function calcularParcelas() {
+            var formaPagamento = document.getElementById('forma_pagamento').value;
+            if (formaPagamento === 'parcelado') {
+                var valorTotal = parseFloat(document.getElementById('valor_total').value) || 0;
+                var valorEntrada = parseFloat(document.getElementById('valor_entrada').value) || 0;
+                var numParcelas = parseInt(document.getElementById('num_parcelas').value) || 0;
+                var dataPrimeiraParcela = document.getElementById('data_primeira_parcela').value;
+
+                if (numParcelas > 0 && dataPrimeiraParcela) {
+                    var valorRestante = valorTotal - valorEntrada;
+                    var valorParcela = valorRestante / numParcelas;
+                    var datasParcelas = calcularDatasParcelas(new Date(dataPrimeiraParcela), numParcelas);
+
+                    document.getElementById('valor_parcela').textContent = valorParcela.toFixed(2);
+                    document.getElementById('datas_parcelas').innerHTML = datasParcelas.join('<br>');
+                    document.getElementById('parcelas_info').style.display = 'block';
+                } else {
+                    document.getElementById('parcelas_info').style.display = 'none';
+                }
+            }
+        }
+
+        function calcularDatasParcelas(dataInicial, numParcelas) {
+            var datas = [];
+            for (var i = 0; i < numParcelas; i++) {
+                var novaData = new Date(dataInicial);
+                novaData.setMonth(novaData.getMonth() + i);
+                var dia = novaData.getDate().toString().padStart(2, '0');
+                var mes = (novaData.getMonth() + 1).toString().padStart(2, '0');
+                var ano = novaData.getFullYear();
+                datas.push(dia + '/' + mes + '/' + ano);
+            }
+            return datas;
+        }
+    </script>
+</body>
+</html>

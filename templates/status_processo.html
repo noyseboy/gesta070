@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/status_processo.css">
+    <title>Status do Processo</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Status do Processo</h1>
+        </div>
+    </header>
+    <div class="content container">
+        <h2>Agendamentos de Prova Teórica</h2>
+        <ul class="agendamentos-list">
+            {% if agendamentos_provas %}
+                {% for agendamento in agendamentos_provas %}
+                    <li>
+                        Data e Hora: {{ agendamento.data_hora }}<br>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li>Nenhum agendamento de prova teórica encontrado.</li>
+            {% endif %}
+        </ul>
+
+        <h2>Agendamentos de Treino Prático</h2>
+        <ul class="agendamentos-list">
+            {% if agendamentos_treinos %}
+                {% for treino in agendamentos_treinos %}
+                    <li>
+                        Tipo de Aula: {{ treino.tipo_aula }}<br>
+                        Data e Hora: {{ treino.data_hora }}<br>
+                        Instrutor: {{ treino.instrutor }}<br>
+                        Dias da Semana: {{ treino.dias_semana|join(', ') }}
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li>Nenhum agendamento de treino prático encontrado.</li>
+            {% endif %}
+        </ul>
+
+        <a href="{{ url_for('painel_aluno') }}" class="button">Voltar para o Painel do Aluno</a>
+    </div>
+</body>
+</html>

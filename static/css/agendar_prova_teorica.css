@@ -1,0 +1,157 @@
+/* Importar fonte Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Reset básico e estilo de fonte */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-image: url("/static/img/12.jpeg");
+    background-size: cover; /* Cobre toda a tela */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff; /* Texto branco para contraste com o fundo */
+    overflow-x: hidden; /* Evita rolagem horizontal */
+}
+
+/* Estilo do cabeçalho */
+h1 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: #fff;
+}
+
+/* Estilo do formulário */
+form {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Estilo do calendário */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colunas para cada dia da semana */
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.header {
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    background: rgba(255, 255, 255, 0.2); /* Fundo semi-transparente para o cabeçalho */
+    border-radius: 5px;
+}
+
+.day {
+    padding: 15px;
+    background: rgba(244, 242, 242, 0.1); /* Fundo semi-transparente para os dias */
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.day.occupied {
+    background: rgba(255, 0, 0, 0.5); /* Fundo vermelho para dias ocupados */
+    cursor: not-allowed;
+}
+
+.day.selected {
+    background: rgba(0, 128, 0, 0.5); /* Fundo verde para o dia selecionado */
+}
+
+.day:hover:not(.occupied) {
+    background: rgba(0, 128, 0, 0.3); /* Efeito hover para dias disponíveis */
+}
+
+/* Estilo do seletor de horário */
+.time-slot {
+    margin-bottom: 20px;
+}
+
+.time-slot label {
+    font-weight: 500;
+    color: #fff;
+}
+
+.time-slot select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #000; /* Alterado para preto para visibilidade */
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Estilo dos botões */
+button, .button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+button[type="submit"] {
+    background: rgba(0, 128, 0, 0.7); /* Botão de agendar em verde */
+    color: #fff;
+}
+
+button[type="button"], .button {
+    background: rgba(0, 0, 128, 0.7); /* Botão de verificar e voltar em azul */
+    color: #fff;
+    text-decoration: none; /* Remover sublinhado dos links de botão */
+    display: inline-block;
+}
+
+button:hover, .button:hover {
+    background: rgba(0, 128, 0, 1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/*#selected_details {
+    margin-top: 20px;
+    font-weight: 500;
+    color: #fff;
+}*/
+.flashes {
+    list-style: none;
+    padding: 0;
+}
+
+.flashes li {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}

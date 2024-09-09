@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem Enviada</title>
+    <script>
+        function redirectToVisualizarMensagens() {
+            setTimeout(function() {
+                window.location.href = "{{ url_for('enviar_mensagem') }}";
+            }, 1000); // Redireciona após 2 segundos
+            
+        }
+    </script>
+</head>
+<body onload="redirectToVisualizarMensagens()">
+    <h1>Mensagem Enviada</h1>
+    <p>Sua mensagem foi enviada com sucesso.</p>
+</body>
+</html>

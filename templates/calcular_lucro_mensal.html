@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Lucro Mensal</title>
+    <link rel="stylesheet" href="/static/css/calcular_lucro_mensal.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #007bff;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 50%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #007bff;
+        }
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .back:hover {
+            background-color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            text-align: left;
+        }
+        td {
+            text-align: right;
+        }
+        td:first-child {
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .result-table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calcular Lucro Mensal</h1>
+
+    {% if erro %}
+        <p style="color: red;">{{ erro }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('calcular_lucro_mensal') }}" method="POST">
+        <label for="mes">Mês (MM/AAAA):</label>
+        <input type="text" name="mes" id="mes" placeholder="MM/AAAA" required>
+        <button type="submit">Calcular</button>
+    </form>
+
+    {% if resultado %}
+        <h2>Resultado</h2>
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor (R$)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Pagamentos à Vista</td>
+                    <td>{{ resultado.valor_avista_total | round(2) }}</td>
+                </tr>
+                <tr>
+                    <td>Total Valor de Entrada</td>
+                    <td>{{ resultado.valor_entrada_total | round(2) }}</td>
+                </tr>
+                <tr>
+                    <td>Total Parcelas Pagas</td>
+                    <td>{{ resultado.valor_parcelas_pagas | round(2) }}</td>
+                </tr>
+                <tr>
+                    <td>Total Parcelas Vencidas</td>
+                    <td>{{ resultado.valor_parcelas_vencidas | round(2) }}</td>
+                </tr>
+                <tr>
+                    <td>Total Parcelas a Vencer</td>
+                    <td>{{ resultado.valor_parcelas_a_vencer | round(2) }}</td>
+                </tr>
+                <tr>
+                    <th>Lucro Mensal</th>
+                    <th>{{ resultado.lucro_mensal | round(2) }}</th>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div><br/><a href="{{ url_for('cadastro_aluno') }}" class="back">Voltar</a></div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/agendar_prova_teorica.css">
+    <title>Agendar Prova Teórica</title>
+</head>
+<body>
+    <h1>Agendar Prova Teórica</h1>
+
+    <!-- Exibir mensagens de sucesso ou erro -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('agendar_prova_teorica') }}">
+        <div class="calendar">
+            <div class="header">Dom</div>
+            <div class="header">Seg</div>
+            <div class="header">Ter</div>
+            <div class="header">Qua</div>
+            <div class="header">Qui</div>
+            <div class="header">Sex</div>
+            <div class="header">Sáb</div>
+
+            {% for day in calendar_days %}
+                <div class="day {{ 'occupied' if day['occupied'] else '' }}" data-date="{{ day['date'] }}">
+                    {{ day['day'] }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="time-slot">
+            <label for="selected_time">Escolha o horário:</label>
+            <select id="selected_time" name="selected_time">
+                <option value="">Selecione</option>
+                {% for hour in range(8, 17) %}
+                    <option value="{{ hour }}:00">{{ hour }}:00</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <input type="hidden" id="selected_date" name="selected_date">
+        <button type="button" id="verificar_horario">Verificar Horário</button>
+        <button type="submit" onclick="return confirm('Você tem certeza que deseja agendar a prova?')">Agendar Prova</button>
+        <a href="{{ url_for('painel_aluno') }}" class="button">Voltar</a>
+    </form>
+
+    <div id="selected_details" class="selected-day"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const days = document.querySelectorAll('.day');
+            const selectedDateInput = document.getElementById('selected_date');
+            const selectedTimeInput = document.getElementById('selected_time');
+            const selectedDetails = document.getElementById('selected_details');
+            const verificarHorarioButton = document.getElementById('verificar_horario');
+
+            let selectedDate = '';
+
+            days.forEach(day => {
+                day.addEventListener('click', function() {
+                    days.forEach(d => d.classList.remove('selected'));
+                    day.classList.add('selected');
+                    selectedDate = day.getAttribute('data-date');
+                    selectedDateInput.value = selectedDate;
+                    selectedDetails.innerText = `Data selecionada: ${selectedDate}`;
+                    
+                    // Atualiza os horários disponíveis
+                    updateAvailableTimes(selectedDate);
+                });
+            });
+
+            function updateAvailableTimes(date) {
+                const timeSelect = document.getElementById('selected_time');
+                const options = timeSelect.options;
+
+                // Resetar todas as opções
+                for (let i = 1; i < options.length; i++) {
+                    options[i].style.display = 'block';
+                }
+
+                // Obter horários ocupados
+                const occupiedTimes = agendamentos_prova_teorica
+                    .filter(a => a.data_hora.startsWith(date))
+                    .map(a => a.data_hora.split(' ')[1]);
+
+                // Ocultar horários ocupados
+                for (let i = 1; i < options.length; i++) {
+                    if (occupiedTimes.includes(options[i].value)) {
+                        options[i].style.display = 'none';
+                    }
+                }
+            }
+
+            verificarHorarioButton.addEventListener('click', function() {
+                const selectedTime = selectedTimeInput.value;
+                if (selectedDate && selectedTime) {
+                    selectedDetails.innerText = `Data selecionada: ${selectedDate} | Horário selecionado: ${selectedTime}`;
+                } else {
+                    selectedDetails.innerText = 'Nenhuma data ou horário selecionado.';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

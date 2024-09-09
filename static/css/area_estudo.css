@@ -1,0 +1,105 @@
+/* Importar fonte Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Reset básico e estilo de fonte */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-image: url("/static/images/1.jpg");
+    background-size: cover; /* Cobre toda a tela */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff; /* Texto branco para contraste com o fundo */
+    overflow-x: hidden; /* Evita rolagem horizontal */
+}
+
+/* Estilo do cabeçalho */
+.header {
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    padding: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Estilo da área de conteúdo */
+.content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilo da lista de vídeos */
+.video-list {
+    list-style: none;
+    padding: 0;
+}
+
+.video-list li {
+    margin-bottom: 15px;
+}
+
+.video-list a {
+    color: #00f; /* Link em azul */
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.video-list a:hover {
+    color: #0f0; /* Link em verde ao passar o mouse */
+}
+
+/* Estilo da seção de simulado */
+.exam-section {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.exam-section p {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* Estilo do botão de voltar */
+.button {
+    display: inline-block;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    background: rgba(0, 0, 128, 0.7); /* Fundo azul */
+    color: #fff;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.button:hover {
+    background: rgba(0, 0, 128, 1); /* Fundo azul mais escuro ao passar o mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

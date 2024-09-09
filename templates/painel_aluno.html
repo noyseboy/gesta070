@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/painel_aluno.css">
+    <title>Painel do Aluno</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Painel do Aluno</h1>
+            <nav>
+                <a href="{{ url_for('area_estudo') }}">Área de Estudo</a>
+                <a href="{{ url_for('agendar_prova_teorica') }}">Agendar Prova Teórica</a>
+                <a href="{{ url_for('agendar_treino_pratico') }}">Agendar Treino Prático</a>
+                <a href="{{ url_for('status_processo') }}">Status do Processo</a>
+                <a href="{{ url_for('central_avisos') }}">Central de Avisos</a>
+                <a href="{{ url_for('feedback') }}">Feedback</a>
+                <a href="{{ url_for('visualizar_mensagens') }}">mensagem</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+                
+            </nav>
+        </div>
+    </header>
+    <main class="content">
+        <h2>Bem-vindo, {{ nome }}!</h2>
+        <p><strong>Categoria:</strong> {{ categoria }}</p>
+        <p><strong>Tempo restante até o fim do processo:</strong> {{ dias_restantes }} dias</p>
+    </main>
+</body>
+</html>

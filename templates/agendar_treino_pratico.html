@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/agendar_treino_pratico.css">
+    <title>Agendar Treino Prático</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Agendar Treino Prático</h1>
+        </div>
+    </header>
+    <div class="content container">
+        <form method="POST" action="{{ url_for('agendar_treino_pratico') }}">
+            <label for="tipo_aula">Tipo de Aula:</label>
+            <select id="tipo_aula" name="tipo_aula" required>
+                <option value="Carro">Carro</option>
+                <option value="Moto">Moto</option>
+            </select><br><br>
+
+            <label for="data_hora">Data e Hora:</label>
+            <input type="datetime-local" id="data_hora" name="data_hora" required><br><br>
+
+            <label for="instrutor">Instrutor:</label>
+            <select id="instrutor" name="instrutor" required>
+                {% for instrutor in instrutores %}
+                    <option value="{{ instrutor }}">{{ instrutor }}</option>
+                {% endfor %}
+            </select><br><br>
+
+            <label>Dias da Semana:</label><br>
+            <div class="checkbox-group">
+                {% for dia in ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"] %}
+                    <div>
+                        <input type="checkbox" id="{{ dia }}" name="dias_semana" value="{{ dia }}">
+                        <label for="{{ dia }}">{{ dia }}</label>
+                    </div>
+                {% endfor %}
+            </div><br>
+            
+            <input type="submit" value="Agendar Treino" class="submit">
+        </form>
+        
+        <h2>Meus Agendamentos</h2>
+        <ul class="agendamentos-list">
+            {% for treino in treinos %}
+                <li>
+                    Tipo: {{ treino.tipo_aula }}<br>
+                    Data e Hora: {{ treino.data_hora }}<br>
+                    Instrutor: {{ treino.instrutor }}<br>
+                    Dias da Semana: {{ treino.dias_semana.split(',') | join(', ') }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('painel_aluno') }}" class="button">Voltar para o Painel do Aluno</a>
+    </div>
+</body>
+</html>
